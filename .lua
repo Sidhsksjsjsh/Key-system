@@ -96,14 +96,14 @@ function ks:CreateUI(Config)
     Frame2.Position = UDim2.new(0.330283642,0,0.235785931,0)
     Frame2.Size = UDim2.new(0,0,0,0)
 
-    UIAspectRatioConstraints.Parent = Frame2 -- from
+    --[[UIAspectRatioConstraints.Parent = Frame2 -- from
     UIAspectRatioConstraints.AspectRatio = 2.000
 
     UIListLayouts.Parent = Frame2
     UIListLayouts.HorizontalAlignment = Enum.HorizontalAlignment.Center
     UIListLayouts.SortOrder = Enum.SortOrder.LayoutOrder
     UIListLayouts.VerticalAlignment = Enum.VerticalAlignment.Center
-    UIListLayouts.Padding = UDim.new(.05,0)
+    UIListLayouts.Padding = UDim.new(.05,0)]]
 
     UICorner.Parent = Frame2 -- not
     UICorner.CornerRadius = UDim.new(.1,0) -- this
