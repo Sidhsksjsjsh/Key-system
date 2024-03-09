@@ -9,6 +9,16 @@ function GenRandomString()
     return table.concat(array)
 end
 
+local function close(frm,ui)
+	frm:TweenSize(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true,function()
+		ui:Destroy()
+	end)
+end
+
+local function open(frm)
+	frm:TweenSize(UDim2.new(0,371,0,315),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
+end
+
 local function dragify(Frame)
 	dragToggle = nil
 	dragSpeed = 0.25
@@ -69,7 +79,11 @@ function ks:CreateUI(Config)
     local Redeem = Instance.new("TextButton")
     local UICorner_3 = Instance.new("UICorner")
     local UICorner_4 = Instance.new("UICorner")
-
+    local UICorner_5 = Instance.new("UICorner") -- from this
+    local UIAspectRatioConstraints = Instance.new("UIAspectRatioConstraint")
+    --local UICorners = Instance.new("UICorner")
+    local UIListLayouts = Instance.new("UIListLayout") -- to this
+	
     --Properties:
 
     KeySystem.Name = GenRandomString()
@@ -79,11 +93,21 @@ function ks:CreateUI(Config)
     Frame2.Name = GenRandomString()
     Frame2.Parent = KeySystem
     Frame2.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-    Frame2.Position = UDim2.new(0.330283642, 0, 0.235785931, 0)
-    Frame2.Size = UDim2.new(0, 371, 0, 315)
+    Frame2.Position = UDim2.new(0.330283642,0,0.235785931,0)
+    Frame2.Size = UDim2.new(0,0,0,0)
 
-    UICorner.Parent = Frame2
+    UIAspectRatioConstraints.Parent = Frame2 -- from
+    UIAspectRatioConstraints.AspectRatio = 2.000
 
+    UIListLayouts.Parent = Frame2
+    UIListLayouts.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    UIListLayouts.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayouts.VerticalAlignment = Enum.VerticalAlignment.Center
+    UIListLayouts.Padding = UDim.new(.05,0)
+
+    UICorner.Parent = Frame2 -- not
+    UICorner.CornerRadius = UDim.new(.1,0) -- this
+	
     Key.Name = GenRandomString()
     Key.Parent = Frame2
     Key.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
@@ -98,7 +122,8 @@ function ks:CreateUI(Config)
     Key.TextWrapped = true
 
     UICorner_2.Parent = Key
-
+    UICorner_2.CornerRadius = UDim.new(.1,0)
+	
     if KeyUrl then
         local WebsiteLabel = Instance.new("TextLabel")
         WebsiteLabel.Name = "WebsiteLabel"
@@ -141,7 +166,9 @@ function ks:CreateUI(Config)
     Exit.TextSize = 14.000
     Exit.TextTransparency = 0.700
     Exit.TextWrapped = true
-
+    UICorner_5.Parent = Exit
+    UICorner_5.CornerRadius = UDim.new(.1,0)
+	
     Redeem.Name = GenRandomString()
     Redeem.Parent = Frame2
     Redeem.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
@@ -157,7 +184,8 @@ function ks:CreateUI(Config)
     Redeem.TextWrapped = true
 
     UICorner_3.Parent = Redeem
-
+    UICorner_3.CornerRadius = UDim.new(.1,0)
+	
     if KeyUrl and setclipboard then
         local CopyLink = Instance.new("TextButton")
         CopyLink.Name = GenRandomString()
@@ -175,7 +203,7 @@ function ks:CreateUI(Config)
         CopyLink.TextWrapped = true
 
         UICorner_4.Parent = CopyLink
-
+        UICorner_4.CornerRadius = UDim.new(.1,0)
         CopyLink.MouseButton1Click:Connect(function()
             setclipboard(tostring(KeyUrl))
         end)
@@ -186,17 +214,19 @@ function ks:CreateUI(Config)
         if Key.Text == v then
             LoadFunction()
             task.wait()
-            KeySystem:Destroy()
-        else
-            Key.Text = "Invalid key, go find it on discord."
+            --KeySystem:Destroy()
+	    close(Frame2,KeySystem)
         end
+	end
     end)
 
     Exit.MouseButton1Click:Connect(function()
         task.wait()
-        KeySystem:Destroy()
+        --KeySystem:Destroy()
+	close(Frame2,KeySystem)
     end)
 
+    open(Frame2)
     dragify(Frame2)
 end
 
