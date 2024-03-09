@@ -195,7 +195,7 @@ function ks:CreateUI(Config)
         CopyLink.Position = UDim2.new(0.202156335, 0, 0.812698424, 0)
         CopyLink.Size = UDim2.new(0, 219, 0, 30)
         CopyLink.Font = Enum.Font.Gotham
-        CopyLink.Text = "Copy Link"
+        CopyLink.Text = "Copy Discord"
         CopyLink.TextColor3 = Color3.fromRGB(255, 255, 255)
         CopyLink.TextScaled = true
         CopyLink.TextSize = 14.000
@@ -205,7 +205,7 @@ function ks:CreateUI(Config)
         UICorner_4.Parent = CopyLink
         UICorner_4.CornerRadius = UDim.new(.1,0)
         CopyLink.MouseButton1Click:Connect(function()
-            setclipboard(tostring(KeyUrl))
+            setclipboard("discord.gg/WhrxEa29P9") --tostring(KeyUrl))
         end)
     end
 
